@@ -25,7 +25,7 @@ class Login extends Controller
 		ini_set('max_execution_time', 350);
 
 			//POBIERANIE LINKUW Z OFETAMI//
-			//$url = $this->getUrl();
+			$url = $this->getUrl();
 
 
 
@@ -33,7 +33,7 @@ class Login extends Controller
 			//print_r($url);
 			echo '</pre>';
 		
-$url = array('http://allegro.pl/domena-portal-taniedoladowanie24-pl-i5798853102.html');
+//$url = array('http://allegro.pl/domena-portal-taniedoladowanie24-pl-i5798853102.html');
 			
 echo '
 			<form action="insert" method="POST">';
@@ -89,6 +89,10 @@ echo '
 						//echo '</br>'.$value;
 						if($value == 'sprzedający' || $value == 'Sprzedający')
 						{
+							if($launch[$key+1] == 'nie')
+							{
+								continue;
+							}
 
 							if($launch[$key+3] == 'href')
 							{
@@ -105,9 +109,11 @@ echo '
 								//dodaje znalezionego sprzedawce do tablcy by nie przeszukiwac jego oferty kilku krotnie
 								$userTab[] = $username;
 								echo '<hr>New  user name is :'.$username.' | email faund :  ';
+								//po znalezieniu user ,szuka  maila na stronie oferty
 								$email = $this->getEmail($text); 
 									if(empty($email))
 									{
+										//jezeli na stronie oferty nie znajdzie usera,szuka w mypage
 										$mypage = $this->getMypage($text);
 											if(!empty($mypage))
 											{
