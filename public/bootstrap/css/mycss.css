@@ -1,0 +1,117 @@
+body
+{
+	background:silver;
+}
+
+ul 
+{
+	list-style-type: none;
+	padding:0;
+
+}
+
+ul > li
+{
+	border:1px solid black;
+	float:left;
+	width:33%;
+	text-align: center;
+	background: gray;
+}
+
+.pole
+{
+	background: gray;	
+	position: relative;
+}
+
+
+
+ul > li:hover .podmenu
+{
+	display:block;
+}
+
+
+.podmenu > ul > li
+{
+	clear:both;
+}
+
+.podmenu > ul 
+{
+	
+
+}
+
+
+.podmenu
+{
+	position:absolute;
+	background: red;
+	width:100%;
+	height: 100px;
+	top:20px;
+	display:none;
+	left:0px;
+	
+}
+
+
+
+/*obrazki  */
+
+.col-md-4 img
+{
+	max-width: 350px;
+	max-height: 400px;
+	position: relative;
+	opacity:0;
+	transition: all 1s;
+	transform: translateX(-100px);
+}
+
+.row
+{
+	margin-bottom: 20px;
+}
+
+.pokaz
+{
+	opacity:1 !important;
+	transform: translateX(0px) !important;
+}
+
+.back
+{
+	position: relative;
+	height: 400px;
+	background-image: url("../../img/back.png");
+	background-size: auto 600px;
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-attachment: fixed;
+	overflow:hidden;
+						
+}
+
+/*Load  */
+
+.load
+{
+	position: relative;
+	top:-527px;
+	left:393px;
+	display:none;
+}
+
+
+.item > img
+{
+	margin:auto;
+}
+
+.item
+{
+	max-height: 400px;
+}
