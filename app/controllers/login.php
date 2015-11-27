@@ -29,11 +29,13 @@ class Login extends Controller
 
 
 
-			echo '<pre>';
-			//print_r($url);
-			echo '</pre>';
-		
-//$url = array('http://allegro.pl/domena-portal-taniedoladowanie24-pl-i5798853102.html');
+/*
+do testów 
+//$url = array('http://allegro.pl/paysafecard-20zl-automat-payu-i5813313887.html','http://allegro.plhttp://allegro.pl/my_page.php?uid=242214');
+
+
+
+*/
 			
 echo '
 			<form action="insert" method="POST">';
@@ -58,7 +60,7 @@ echo '
 		$db = new user;
 		
 
-		$userTab = $db->sql("SELECT name FROM klienci");
+		$userTab = $db->sql("SELECT name FROM klienci");  
 		$licznik = 0;
 
 		foreach ($url as $urlkey => $urlvalue) 
@@ -66,7 +68,9 @@ echo '
 				
 				$licznik++;
 
-				 $text = file_get_contents($urlvalue);
+				 $text = @file_get_contents($urlvalue);
+				 if($text === false) echo '<hr>Ofertaj '.$urlvalue.' jest juz nie aktualna';
+
 				//skrucenie pobranego textu (tymczasowo wyaączone) 
 				// $text = substr($text,0,60000);
 
@@ -187,7 +191,16 @@ public function getMypage($text)
 	{
 		if(preg_match('/my_page.php/', $value))
 		{
-			return 'http://allegro.pl'.$value; 
+
+			if(filter_var($value, FILTER_VALIDATE_URL))
+			{
+				return $value;
+			} 
+			else
+			{
+				return 'http://allegro.pl'.$value; 
+			}
+
 		}
 	}
 
@@ -257,15 +270,17 @@ public function getMypage($text)
 		
 		$text = preg_replace('/\s+/', ',', $text);  //zast뱵je wszystkie odst뱹 przecinkami
 		
-		$delimiters = array('|',':','[',']','(',')','+','<','>','?','!','"','\'','/','~');
+		$delimiters = array('|',':','[',']','(',')','+','<','>','?','!','"','\'','/','~',';');
 		$ready = str_replace($delimiters, ',', $text);  //zast뱵je powyrzsze znaki przecij
 		$launch = explode(',', $ready);
+
 
 		$email = array_filter($launch,function($i) 
 		{
 			return filter_var($i, FILTER_VALIDATE_EMAIL); 
 		});
 
+		
 		$email = array_filter($email,function($i) 
 		{
 					$file_parts = pathinfo($i);
